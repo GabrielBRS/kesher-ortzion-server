@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ortzion Telecom - Token de Acesso</title>
+    <style>
+        /* Adicionar estilos aqui para melhor compatibilidade com clientes de e-mail */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fc;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border: 1px solid #e9ecef;
+        }
+        .greeting {
+            font-size: 20px;
+            color: #343a40;
+            margin-bottom: 20px;
+        }
+        .token-intro {
+            font-size: 16px;
+            color: #6c757d;
+            margin-bottom: 15px;
+        }
+        .token {
+            font-size: 32px;
+            font-weight: bold;
+            color: #495057;
+            background-color: #f1f3f5;
+            padding: 10px 20px;
+            border-radius: 5px;
+            display: inline-block;
+            letter-spacing: 3px;
+            margin-bottom: 30px;
+        }
+        .footer {
+            font-size: 12px;
+            color: #adb5bd;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <p class="greeting">Olá, <span th:text="${nome}">Usuário</span>!</p>
+
+    <p class="token-intro">Seu token de acesso é:</p>
+
+    <div class="token">
+        <span th:text="${tokenAcesso}">123456</span>
+    </div>
+
+    <p class="footer">
+        Se você não solicitou este código, por favor, ignore este e-mail.
+    </p>
+</div>
+</body>
+</html>

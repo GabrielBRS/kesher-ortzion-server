@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ortzion Telecom - Confirmação de Pré-Cadastro</title>
+</head>
+<body style="font-family: Arial, sans-serif; background-color: #f8f9fc; padding: 30px; color: #333;">
+<div style="max-width: 600px; margin: auto; background-color: white; padding: 30px; border-radius: 8px; text-align: center; box-shadow: 0 0 10px rgba(0,0,0,0.05);">
+
+    <!-- Logo deve estar dentro do body -->
+<!--    <img src="cid:logoOrtZion" alt="Ortzion Telecom" style="width: 150px; margin-bottom: 20px;" />-->
+
+    <h2>Olá, <span th:text="${nomeRepresentanteLegal}">Usuário</span>!</h2>
+
+    <p>Recebemos seu pré-cadastro. E agora iremos analizar a documentação que foi enviada</p>
+
+    <p>Se tudo estiver certo a instituição <span th:text="${instituicao}">Instituição</span> portadora do cnpj <span th:text="${cnpj}">cnpj</span> será incorporada ao sistema da Ortzion Telecom</p>
+
+    <p style="margin-top: 20px; font-size: 12px; color: #999;">
+        Se você não solicitou este cadastro, ignore este e-mail.
+    </p>
+</div>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ortzion Telecom - Primeiro Acesso</title>
+</head>
+<body style="font-family: Arial, sans-serif; background-color: #f8f9fc; padding: 30px; color: #333;">
+<div style="max-width: 600px; margin: auto; background-color: white; padding: 30px; border-radius: 8px; text-align: center; box-shadow: 0 0 10px rgba(0,0,0,0.05);">
+
+    <!-- Logo deve estar dentro do body -->
+<!--    <img src="cid:logoOrtZion" alt="Ortzion Telecom" style="width: 150px; margin-bottom: 20px;" />-->
+
+    <h2>Olá, <span th:text="${nomeRepresentanteLegal}">Usuário</span></h2>
+
+    <p>A sua instituição <span th:text="${instituicao}">instituição</span> foi aprovada, bem vindo ao sistema Ortzion Telecom</p>
+
+    <p>Para fazer o primeiro acesso ao nosso sistema entre com o email da sua instituição <span th:text="${email}">email</span></p>
+
+    <h2>E com a sua senha provisória é <br><br> <span th:text="${senhaProvisoria}">Usuário</span></h2>
+
+    <p style="margin-top: 20px; font-size: 12px; color: #999;">
+        Se você não solicitou este cadastro, ignore este e-mail.
+    </p>
+</div>
+</body>
+</html>

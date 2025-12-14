@@ -1,0 +1,12 @@
+package com.ortzion_technology.ortzion_telecom_server.repository.padrao.mercado_virtual;
+
+import com.ortzion_technology.ortzion_telecom_server.entity.domain.mercado_virtual.EstoqueMercadoriaVirtual;
+import com.ortzion_technology.ortzion_telecom_server.repository.abstrato.customizado.EstoqueMercadoriaVirtualRepositoryCustom;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface EstoqueMercadoriaVirtualRepository extends JpaRepository<EstoqueMercadoriaVirtual, Long>, EstoqueMercadoriaVirtualRepositoryCustom
+{
+
+}

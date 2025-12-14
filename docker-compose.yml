@@ -1,0 +1,85 @@
+version: '3.8'
+
+services:
+  # ------------------------------------
+  # 1. SERVIÇO DO BANCO DE DADOS (POSTGRESQL)
+  # ------------------------------------
+  db:
+    image: postgres:16-alpine
+    container_name: ortzion-telecom-db
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=${DB_NAME:-kesher_ortzion_database}
+      - POSTGRES_USER=${DB_USERNAME:-ortzion_dba}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - postgres_data:/var/lib/postgresql/data
+    restart: always
+
+  # ------------------------------------
+  # 2. SERVIÇO DA APLICAÇÃO JAVA (SPRING BOOT)
+  # ------------------------------------
+  app:
+    build: .
+    container_name: ortzion-telecom-app
+    ports:
+      - "28080:28080"
+    environment:
+      # Conexão com Banco
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/${DB_NAME:-kesher_ortzion_database}
+      - SPRING_DATASOURCE_USERNAME=${DB_USERNAME:-ortzion_dba}
+      - SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD}
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+
+      # RabbitMQ
+      - SPRING_RABBITMQ_HOST=host.docker.internal
+      - SPRING_RABBITMQ_USERNAME=${RABBITMQ_USER:-guest}
+      - SPRING_RABBITMQ_PASSWORD=${RABBITMQ_PASS:-guest}
+
+      # Configurações Gerais
+      - SERVER_PORT=28080
+      - AMBIENTE=prod
+      - FILE_UPLOAD_DIR=/tmp/uploads
+
+      # JWT
+      - JWT_SECRET=${JWT_SECRET}
+      - JWT_EXPIRATION=86400000
+
+      # E-mail (Gmail)
+      - SPRING_MAIL_HOST=smtp.gmail.com
+      - SPRING_MAIL_PORT=587
+      - SPRING_MAIL_USERNAME=${MAIL_USERNAME}
+      - SPRING_MAIL_PASSWORD=${MAIL_PASSWORD}
+
+      # Python Integration
+      - PYTHON_BASE_URL=http://15.228.45.252/api/ortzion-ai/
+
+      # AWS Cloud (Variáveis do .env)
+      - CLOUD_AWS_REGION_STATIC=sa-east-1
+      - CLOUD_AWS_CREDENTIALS_ACCESS-KEY=${AWS_ACCESS_KEY_ID}
+      - CLOUD_AWS_CREDENTIALS_SECRET-KEY=${AWS_SECRET_ACCESS_KEY}
+      - S3_BUCKET_NAME=${S3_BUCKET_NAME}
+
+      # Integrações Externas
+      - SENDGRID_API_KEY=${SENDGRID_API_KEY}
+      - BREVO_API_KEY=${BREVO_API_KEY}
+      - BANCO_PAGARME_API_KEY=${PAGARME_API_KEY}
+      - BANCO_PAGARME_API_URL=https://api.pagar.me/core/v5/orders
+      - BANCO_PAGARME_API_ID_WEBHOOK=${PAGARME_WEBHOOK_ID}
+
+    volumes:
+      - /etc/ortzion/certs:/app/certs
+
+    depends_on:
+      - db
+
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+# ------------------------------------
+# 3. VOLUMES
+# ------------------------------------
+volumes:
+  postgres_data:
